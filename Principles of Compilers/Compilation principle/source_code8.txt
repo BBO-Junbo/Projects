@@ -1,0 +1,6 @@
+while(a<b)
+    if(c)
+        x=y+z;
+    else
+        x=y-z;
+a=y;

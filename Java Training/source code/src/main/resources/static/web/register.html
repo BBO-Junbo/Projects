@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- 其他头部内容 -->
+
+  <title>遛狗预约系统</title>
+  <style>
+    /* 设置页面样式 */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-image: url("../images/首页.jpg");
+        background-size: cover;
+        background-position: center;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    header{
+        color: #F5F5DC;
+        padding: 10px;
+    }
+    footer {
+        color: #F5F5DC;
+        padding: 4px;
+    }
+    main {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .btn {
+        display: inline-block;
+        padding: 20px 40px;
+        background-color: #eee;
+        border: none;
+        text-decoration: none;
+        color: #666;
+        font-weight: bold;
+        font-size: 24px;
+        cursor: pointer;
+        opacity: 0.7;
+        border-radius: 5%;
+    }
+    .btn:first-of-type {
+        margin-right: 20px;
+    }
+    .form-group {
+        margin-bottom: 10px;
+    }
+     h1{
+      font-size:300%;
+    }
+    .form-group label {
+    font-size:25px;
+        color:#F5F5DC;
+        display: block;
+        margin-bottom: 5px;
+    }
+    .form-group select {
+    font-size:17px;
+    }
+    .form-group input {
+        opacity: 0.7;
+        font-size: 15px;
+        padding: 10px;
+        width: 300px;
+    }
+    #btn-home {
+        margin-top: 20px;
+        padding: 8px 50px; /* 缩小按钮大小为原来的四分之一 */
+        }
+
+    #btn-reg {
+        margin-top: 20px; /* 调整按钮间距 */
+        padding: 8px 50px; /* 缩小按钮大小为原来的四分之一 */
+        }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <!-- 页面顶部 -->
+    <h1>遛狗预约系统</h1>
+  </header>
+  <main>
+    <!-- 页面中部 -->
+    <form id="form-reg">
+      <div class="form-group">
+        <label for="username">用户名:</label>
+        <input type="text" id="username" name="username" placeholder="请输入用户名">
+      </div>
+      <div class="form-group">
+        <label for="password">密码:</label>
+        <input type="password" id="password" name="password" placeholder="请输入密码">
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">确认密码:</label>
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="请再次输入密码">
+      </div>
+      <div class="form-group">
+        <label for="role">角色:</label>
+        <select id="role" name="role">
+          <option value="M">狗主人</option>
+          <option value="C">客户</option>
+        </select>
+      </div>
+      <button type="submit" id="btn-reg" class="btn">注册</button>
+      <a href="http://localhost:8080/index.html" class="btn" id="btn-home">返回</a>
+    </form>
+  </main>
+  <footer>
+    <!-- 页面底部 -->
+    <p>&copy; 版权所有 2023. All rights reserved.</p>
+  </footer>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#form-reg").submit(function(event) {
+            event.preventDefault(); // 阻止表单默认提交行为
+
+            var password = $("#password").val();
+            var confirmPassword = $("#confirm-password").val();
+
+            if (password !== confirmPassword) {
+                alert("密码和确认密码不一致，请重新输入密码！");
+                return;
+            }
+
+            // 移除不需要提交的字段
+            $("#confirm-password").removeAttr("name");
+
+            $.ajax({
+                url: "/users/reg",
+                type: "POST",
+                data: $(this).serialize(),
+                dataType: "json",
+                success: function(json) {
+                    if (json.state === 200) {
+                        alert("注册成功！");
+                        window.location.href = "../index.html";
+                    } else {
+                        alert("注册失败！" + json.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert("请求出错：" + error);
+                }
+            });
+        });
+    });
+</script>
+</html>

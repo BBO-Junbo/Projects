@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- 其他头部内容 -->
+
+  <title>遛狗预约系统</title>
+  <style>
+    /* 设置页面样式 */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-image: url("../images/首页.jpg");
+        background-size: cover;
+        background-position: center;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    header, footer {
+        background-color: transparent;
+        color: #fff;
+        padding: 10px;
+    }
+    main {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+    .btn-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+
+    }
+     h1{
+      font-size:300%;
+    }
+    .btn {
+        flex: 1;
+        padding: 30px 60px; /* 调整按钮的大小 */
+        background-color: #eee;
+        border: none;
+        text-decoration: none;
+        color: #666;
+        font-weight: bold;
+        font-size: 24px;
+        cursor: pointer;
+        opacity: 0.4;
+        border-radius: 15%;
+        text-align: center;
+        align-items:center;
+        display:flex;
+        justify-content:center;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <header>
+    <!-- 页面顶部 -->
+    <h1>遛狗预约系统</h1>
+  </header>
+  <main>
+    <!-- 页面中部 -->
+    <div class="btn-container">
+      <a href="web/register.html" class="btn">注册</a>
+      <a href="web/masterweb/masterlogin.html" class="btn">宠物主人登录</a>
+      <a href="web/guestweb/guestlogin.html" class="btn">客户登录</a>
+    </div>
+  </main>
+  <footer>
+    <!-- 页面底部 -->
+    <p>&copy; 版权所有 2023. All rights reserved.</p>
+  </footer>
+</div>
+</body>
+</html>

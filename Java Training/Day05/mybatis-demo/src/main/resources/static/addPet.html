@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <!-- 其他头部内容 -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>宠物管理系统</title>
+    <style>
+        /* 设置页面样式 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+        }
+        aside {
+            background-color: #f1f1f1;
+            padding: 10px;
+        }
+        nav {
+            display: flex;
+            flex-direction: column;
+        }
+        nav button {
+            margin-bottom: 5px;
+            padding: 10px;
+            background-color: #eee;
+            border: none;
+            cursor: pointer;
+        }
+        nav button:hover {
+            background-color: #ccc;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #eee;
+            border: none;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-large {
+            font-size: 24px; /* 设置大号按钮字体大小 */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <!-- 页面顶部 -->
+        <h1>宠物管理系统</h1>
+    </header>
+    <main>
+        <!-- 页面中部 -->
+        <aside>
+            <!-- 左侧导航栏 -->
+            <nav>
+                <button class="btn btn-large">
+                    <a href="/index.html" class="btn">首页</a>
+                </button >
+
+                <button class="btn btn-large">
+                    <a href="/addPet.html" class="btn">添加宠物</a>
+                </button >
+
+                <button class="btn btn-large">
+                    <a href="/petList.html" class="btn">宠物列表</a>
+                </button>
+            </nav>
+        </aside>
+        <section>
+            <!-- 中部内容 -->
+            <h2>添加宠物</h2>
+            <div class="container">
+                <form id="petForm">
+                    <p>
+                        <label for="name">姓名：</label>
+                        <input type="text" id="name" name="name" required>
+                    </p>
+                    <p>
+                        <label for="gender">性别：</label>
+                        <select id="gender" name="gender" required>
+                            <option value="M">牡</option>
+                            <option value="F">牝</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="birth">出生日期：</label>
+                        <input type="date" id="birth" name="birth" required>
+                    </p>
+                    <p>
+                        <button type="submit">提交</button>
+                    </p>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <!-- 页面底部 -->
+        <p>&copy; 版权所有 2023. All rights reserved.</p>
+    </footer>
+</div>
+<script>
+        $(document).ready(function() {
+            // 监听表单提交事件
+            $('#petForm').submit(function(event) {
+                event.preventDefault(); // 阻止默认表单提交行为
+
+            var name = $("#name").val();
+            var gender = $("#gender").val();
+            var birth = $("#birth").val();
+
+            // 创建一个对象，用于存储表单数据
+            // {name:"张三", gender: "M", birth: "xxxx-xx-xx"}
+            // JSON - Javascript Object Notation
+            var petInfo = {
+                name: name,
+                gender: gender,
+                birth: birth
+            };
+
+                // 发送 AJAX 请求
+                $.ajax({
+                    type: 'POST',
+                    url: '/addPet',
+                    data: JSON.stringify(petInfo),
+                    contentType:"application/json",
+                    dataType: 'json',
+                success: function(data, status) {
+                    // 处理服务器返回的JSON结果
+                 if (data.result === "ok") {
+                   alert("添加宠物成功！");
+                  } else {
+                     alert("添加宠物失败，请重试。");
+                 }
+                }
+         });
+      });
+    });
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+

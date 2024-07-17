@@ -1,0 +1,6 @@
+if(flag==1)
+    while(i<=100)
+        i=c[i]*d;
+else
+    z[i,j]=a+k;
+s=t;

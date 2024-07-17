@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.DogWalkingAppointment.mapper.DogReviewMapper">
+
+    <resultMap id="DogReviewEntityMap" type="cn.tedu.DogWalkingAppointment.entity.DogReview">
+        <result column="review_id" property="dreviewId"/>
+        <result column="dog_id" property="dogId"/>
+        <result column="user_id" property="userId"/>
+        <result column="rating" property="rating"/>
+        <result column="comment" property="comment"/>
+        <result column="created_user" property="createdUser"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="modified_user" property="modifiedUser"/>
+        <result column="modified_time" property="modifiedTime"/>
+    </resultMap>
+
+
+    <insert id="addNewComment" useGeneratedKeys="true" keyProperty="dreviewId">
+            insert into DogReview (dog_id,user_id,appointment_id,rating,comment,created_user,created_time)
+            values(#{dogId},#{userId},#{appointmentId},#{rating},#{comment},#{createdUser},#{createdTime})
+    </insert>
+    <select id="showReviews" resultMap="DogReviewEntityMap">
+        select * from dogreview where dog_id=#{dogId};
+    </select>
+</mapper>

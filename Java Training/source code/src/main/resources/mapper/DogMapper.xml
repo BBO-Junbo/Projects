@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.DogWalkingAppointment.mapper.DogMapper">
+    <resultMap id="DogEntityMap" type="cn.tedu.DogWalkingAppointment.entity.Dog">
+        <id column="dog_id" property="dogId"/>
+        <result column="user_id" property="userId"/>
+        <result column="master_name" property="masterName"/>
+        <result column="address" property="address"/>
+        <result column="dog_name" property="dogName"/>
+        <result column="dog_breed" property="dogBreed"/>
+        <result column="dog_age" property="dogAge"/>
+        <result column="dog_gender" property="dogGender"/>
+        <result column="is_neutered" property="isNeutered"/>
+        <result column="is_sick" property="isSick"/>
+        <result column="remark" property="remark"/>
+        <result column="image_url" property="imageUrl"/>
+        <result column="created_user" property="createdUser"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="modified_user" property="modifiedUser"/>
+        <result column="modified_time" property="modifiedTime"/>
+
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
+        insert into Dog (dog_id,user_id, master_name, address, dog_name, dog_breed, dog_age,dog_gender,is_neutered,is_sick,remark,image_url,created_user,created_time, modified_user, modified_time)
+        values (#{dogId},#{userId}, #{masterName}, #{address},#{dogName},#{dogBreed},#{dogAge},#{dogGender},#{isNeutered},#{isSick},#{remark}, #{imageUrl},#{createdUser}, #{createdTime}, #{modifiedUser}, #{modifiedTime})
+    </insert>
+    <select id="findByUid" resultMap="DogEntityMap">
+        select * from Dog where user_id=#{userId} order by created_time desc
+    </select>
+    <select id="findByDogId" resultMap="DogEntityMap">
+        select * from Dog where dog_id=#{dogId}
+    </select>
+    <select id="findAllDog" resultMap="DogEntityMap">
+        select * from Dog  order by created_time desc
+    </select>
+
+    <delete id="deleteByDogId">
+        delete from Dog where dog_id=#{dogId}
+    </delete>
+
+    <update id="changeIsReservedByAvailabilityId">
+        update dogavailability set is_reserved=1
+        where availability_id=#{availabilityId}
+    </update>
+    <update id="updateDogById">
+        update Dog
+        set
+        address=#{address},
+        dog_name=#{dogName},
+        dog_breed=#{dogBreed},
+        dog_age=#{dogAge},
+        dog_gender=#{dogGender},
+        is_neutered=#{isNeutered},
+        is_sick=#{isSick},
+        remark=#{remark},
+        modified_user=#{modifiedUser},
+        modified_time=#{modifiedTime}
+        where dog_id=#{dogId}
+    </update>
+</mapper>

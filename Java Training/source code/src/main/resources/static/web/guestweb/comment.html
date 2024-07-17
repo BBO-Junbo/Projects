@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>遛狗预约系统（客户端）</title>
+  <style>
+    /* 设置页面样式 */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-image: url("../../images/客户端.jpg");
+        background-size: cover;
+        background-position: center;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    header, footer {
+        color: #fff;
+        padding: 10px;
+    }
+    main {
+        flex-grow: 1;
+        display: flex;
+    }
+    section{
+      flex-grow: 1;
+      background-color:transparent;
+      background-color: white;
+      opacity: 0.75;
+      padding-left: 20px;
+    }
+    aside {
+        background-color: #f1f1f1;
+        padding: 10px;
+    }
+    nav {
+        display: flex;
+        flex-direction: column;
+    }
+    nav button {
+        margin-bottom: 5px;
+        padding: 10px;
+        background-color: #eee;
+        border: none;
+        cursor: pointer;
+    }
+    nav button:hover {
+        background-color: #ccc;
+    }
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        text-decoration: none;
+        color: #666;
+        font-weight: bold;
+        cursor: pointer;
+        background-size: cover;
+    }
+    .btn-large {
+        font-size: 24px; /* 设置大号按钮字体大小 */
+        background-image: url("../../images/图标.jpg");
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-group input {
+        padding: 10px;
+        width: 300px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ccc;
+    }
+
+    th {
+        background-color: #f1f1f1;
+        font-weight: bold;
+    }
+
+    img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .comment-box {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .comment-box {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex; // 添加此行，使评论框和提交按钮水平排列
+    flex-direction: column; /* 改为垂直方向布局 */
+    align-items: center; // 添加此行，使评论框和提交按钮垂直居中对齐
+    }
+
+    .comment-box .character-count {
+        text-align: right;
+        color: #999;
+    }
+
+    .star-rating {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .star-rating input[type="radio"] ~ label {
+    background-image: url("../../images/Star.jpg");
+    background-size: cover;
+    }
+
+    .star-rating input[type="radio"]:checked ~ label,
+    .star-rating input[type="radio"]:checked ~ label ~ input ~ label {
+        background-image: url("../../images/StarBack.jpg");
+        background-color: yellow;
+    }
+
+    .star-rating .selected label {
+        background-image: url("../../images/StarBack.jpg");
+        background-color: yellow;
+    }
+  </style>
+  <script src="//aeu.alicdn.com/waf/interfaceacting220819.js"></script><script src="//aeu.alicdn.com/waf/antidomxss_v640.js"></script>
+  <script>
+      // 添加点击事件
+      $(document).ready(function(){
+        $("input[type='radio']").click(function(){
+          var rating = $(this).val();
+          $("input[name='rating']").val(rating);
+        });
+      });
+  </script>
+
+</head>
+<body>
+<div class="container">
+  <header>
+    <!-- 页面顶部 -->
+    <h1>遛狗预约系统（客户端）</h1>
+  </header>
+  <main>
+    <!-- 页面中部 -->
+    <aside>
+      <!-- 左侧导航栏 -->
+      <nav>
+        <button class="btn btn-large">
+          <a href="ratedog.html" class="btn">返回</a>
+        </button>
+      </nav>
+    </aside>
+    <section>
+      <!-- 中部内容 -->
+      <h2>当前订单</h2>
+      <table id="now_appoint">
+        <thead>
+        <tr>
+          <th>头像</th>
+          <th>主人</th>
+          <th>狗狗</th>
+          <th>年龄</th>
+          <th>品种</th>
+          <th>开始时间</th>
+          <th>结束时间</th>
+        </tr>
+        </thead>
+        <tbody id="dog-l">
+        <tr>
+          <td><img src="dog1.jpg" alt="Dog Avatar"></td>
+          <td>柯基</td>
+          <td>3</td>
+          <td>公</td>
+          <td>是</td>
+          <td>张三</td>
+          <td>北京市</td>
+        </tr>
+        <!-- 添加更多狗狗的信息行 -->
+        </tbody>
+      </table>
+
+      <h2>打分</h2>
+      <div class="star-rating">
+        <input type="radio" name="rating" value="1" id="star-1" onclick="setRating(1)"><label for="star-1"></label>
+        <input type="radio" name="rating" value="2" id="star-2" onclick="setRating(2)"><label for="star-2"></label>
+        <input type="radio" name="rating" value="3" id="star-3" onclick="setRating(3)"><label for="star-3"></label>
+        <input type="radio" name="rating" value="4" id="star-4" onclick="setRating(4)"><label for="star-4"></label>
+        <input type="radio" name="rating" value="5" id="star-5" onclick="setRating(5)"><label for="star-5"></label>
+      </div>
+
+      <div class="comment-box">
+        <h2>评论</h2>
+        <textarea id="comment" placeholder="请输入评论内容"></textarea>
+        <div class="character-count"></div>
+        <button onclick="submitComment()">提交</button>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <!-- 页面底部 -->
+    <p>&copy; 版权所有 2023. All rights reserved.</p>
+  </footer>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+  $(function() {
+    showAppoint();
+  });
+
+  function showAppoint() {
+    $("#now_appoint tbody").empty();
+    var urlParams = new URLSearchParams(window.location.search);
+    var appointmentId = urlParams.get('appointmentId');
+    $.ajax({
+      url: "/appointment/now_appointment?appointmentId="+appointmentId,
+      type: "GET",
+      dataType: "json",
+      success: function(response) {
+        if (response.state == 200) {
+          var appoint = response.data;
+
+          var appointRow = '<tr>' +
+            '<td><img src="' + appoint.imageUrl + '" alt="Dog Avatar" class="avatar"></td>' +
+            '<td>' + appoint.masterName + '</td>' +
+            '<td>' + appoint.dogName + '</td>' +
+            '<td>' + appoint.dogAge + '</td>' +
+            '<td>' + appoint.dogBreed + '</td>' +
+            '<td>' + appoint.startTime + '</td>' +
+            '<td>' + appoint.endTime + '</td>' +
+            '</tr>';
+
+          $("#now_appoint tbody").append(appointRow);
+        } else {
+          alert("获取订单失败");
+        }
+      },
+      error: function() {
+        alert("请求订单出现错误");
+      }
+    });
+  }
+
+  function submitComment() {
+    var comment = $("#comment").val();
+    var rating = $("input[name='rating']:checked").val();
+    //找到三个对应数据
+    var urlParams = new URLSearchParams(window.location.search);
+    var appointmentId = urlParams.get('appointmentId');
+
+
+      if (!rating) {
+        alert("请为订单打分");
+      } else if (comment.length > 100) {
+        alert("评论字数超过限制");
+      } else {
+      // 将评论内容和打分数据提交给服务器
+        $.ajax({
+            url: "/comment/submit",
+            type: "POST",
+            data: {
+              appointmentId:appointmentId,
+              comment: comment,
+              rating: rating
+            },
+          success: function(response) {
+            if (response.state == 200) {
+              alert("评论提交成功");
+            } else {
+              alert("评论提交失败");
+            }
+          },
+          error: function() {
+            alert("请求提交评论出现错误");
+          }
+        });
+      }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.DogWalkingAppointment.mapper.CustomerMapper">
+    <resultMap id="CustomerEntityMap" type="cn.tedu.DogWalkingAppointment.entity.Customer">
+        <result column="customer_id" property="customerId"/>
+        <result column="user_id" property="userId"/>
+        <result column="name" property="customerName"/>
+        <result column="address" property="address"/>
+    </resultMap>
+    <insert id="insert" >
+        INSERT INTO
+        customers (customer_id,user_id,name,address,created_user, created_time, modified_user, modified_time)
+        VALUES
+        (#{customerId}, #{userId}, #{customerName}, #{address},#{createdUser}, #{createdTime}, #{modifiedUser}, #{modifiedTime})
+    </insert>
+    <select id="findByname" resultMap="CustomerEntityMap">
+        select *
+        from customers
+        where name = #{name}
+    </select>
+    <select id="findByUserId" resultMap="CustomerEntityMap">
+        select *
+        from customers
+        where user_id = #{uid}
+    </select>
+    <select id="findByCustomerId" resultMap="CustomerEntityMap">
+        select *
+        from customers
+        where customer_id = #{cid}
+    </select>
+</mapper>

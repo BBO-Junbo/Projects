@@ -1,0 +1,19 @@
+LFU: Added Page 1
+LFU: Added Page 2
+LFU: Added Page 3
+LFU: Evicted Page 1
+LFU: Added Page 4
+LFU: Evicted Page 2
+LFU: Added Page 1
+LFU: Evicted Page 3
+LFU: Added Page 2
+LFU: Evicted Page 4
+LFU: Added Page 5
+LFU: Page 1 - Hit
+LFU: Page 2 - Hit
+LFU: Evicted Page 5
+LFU: Added Page 3
+LFU: Evicted Page 3
+LFU: Added Page 4
+LFU: Evicted Page 4
+LFU: Added Page 5

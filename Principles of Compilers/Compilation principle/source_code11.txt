@@ -1,0 +1,7 @@
+while(a<b)
+    if(c)
+        while(d>e)
+            x1=y1;
+    else
+        x2=y2;
+x3[k]=y3[i,j];

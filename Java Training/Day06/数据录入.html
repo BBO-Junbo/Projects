@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>用户信息</title>
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+            width: 600px;
+            margin: 10px auto;
+        }
+        #form {
+            margin-bottom: 20px;
+        }
+        #form input {
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #confirmButton {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #table {
+            border-collapse: collapse;
+            margin-top: 20px;
+            width: 100%;
+        }
+        #table th, #table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        #table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #tableBody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#confirmButton").click(function() {
+        // 获取输入框的值
+        var name = $("#nameInput").val();
+        var gender = $("#genderInput").val();
+        var age = $("#ageInput").val();
+
+        // 创建新的表格行并添加数据
+        var newRow = "<tr><td>" + name + "</td><td>" + gender + "</td><td>" + age + "</td></tr>";
+        $("#tableBody").append(newRow);
+
+        // 清空输入框的值
+        $("#nameInput").val("");
+        $("#genderInput").val("");
+        $("#ageInput").val("");
+      });
+    });
+  </script>
+
+</head>
+<body>
+<div id="form">
+  <input type="text" id="nameInput" placeholder="姓名">
+  <br>
+  <input type="text" id="genderInput" placeholder="性别">
+  <br>
+  <input type="text" id="ageInput" placeholder="年龄">
+  <br>
+  <button id="confirmButton">确定</button>
+</div>
+
+<table id="table">
+  <thead>
+  <tr>
+    <th>姓名</th>
+    <th>性别</th>
+    <th>年龄</th>
+  </tr>
+  </thead>
+  <tbody id="tableBody">
+  </tbody>
+</table>
+
+</body>
+</html>

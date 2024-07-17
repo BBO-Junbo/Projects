@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <!-- 其他头部内容 -->
+
+    <title>宠物管理系统</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 引入 jQuery UI 核心文件 -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- 引入 jQuery UI CSS 文件 -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        /* 设置页面样式 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+        }
+        aside {
+            background-color: #f1f1f1;
+            padding: 10px;
+        }
+        nav {
+            display: flex;
+            flex-direction: column;
+        }
+        nav button {
+            margin-bottom: 5px;
+            padding: 10px;
+            background-color: #eee;
+            border: none;
+            cursor: pointer;
+        }
+        nav button:hover {
+            background-color: #ccc;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #eee;
+            border: none;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-large {
+            font-size: 24px; /* 设置大号按钮字体大小 */
+        }
+        <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .action-buttons button {
+            margin-right: 5px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <!-- 页面顶部 -->
+        <h1>宠物管理系统</h1>
+    </header>
+    <main>
+        <!-- 页面中部 -->
+        <aside>
+            <!-- 左侧导航栏 -->
+            <nav>
+                <button class="btn btn-large">
+                    <a href="/index.html" class="btn">首页</a>
+                </button >
+
+                <button class="btn btn-large">
+                    <a href="/addPet.html" class="btn">添加宠物</a>
+                </button >
+
+                <button class="btn btn-large">
+                    <a href="/petList.html" class="btn">宠物列表</a>
+                </button>
+            </nav>
+        </aside>
+        <section>
+            <p id="petListContainer">Loading...</p>
+
+            <script>
+               $(document).ready(function() {
+                    getList();
+
+            });
+
+            function renderPetListTable(pets) {
+              // 创建表格元素
+              var table = $('<table></table>');
+
+             // 创建表头行
+             var thead = $('<thead></thead>');
+             var headerRow = $('<tr></tr>');
+             headerRow.append('<th>ID</th>');
+             headerRow.append('<th>Name</th>');
+             headerRow.append('<th>Gender</th>');
+             headerRow.append('<th>Birth</th>');
+             headerRow.append('<th>Actions</th>');
+             thead.append(headerRow);
+             table.append(thead);
+
+            // 创建表格内容
+            var tbody = $('<tbody></tbody>');
+            for (var i = 0; i < pets.length; i++) {
+                var pet = pets[i];
+                var row = $('<tr></tr>');
+                row.append('<td>' + pet.id + '</td>');
+                row.append('<td>' + pet.name + '</td>');
+                row.append('<td>' + pet.gender + '</td>');
+                row.append('<td>' + pet.birth + '</td>');
+
+                // 创建操作按钮列
+                var actions = $('<td class="action-buttons"></td>');
+                actions.append("<button onclick='editPet("+pet.id+", \""+pet.name+"\")'>Edit</button>");
+                actions.append('<button onclick="deletePet(' + pet.id + ')">Delete</button>');
+                row.append(actions);
+
+                tbody.append(row);
+            }
+            table.append(tbody);
+
+            // 将表格插入到页面中
+            $('#petListContainer').html(table);
+        }
+        function getList(){
+
+                 // 请求宠物列表数据
+                  $.ajax({
+                     type: 'GET',
+                      url: '/petList',
+                      success: function(pets) {
+                      // 渲染宠物列表表格
+                        renderPetListTable(pets);
+                    },
+                 error: function(xhr, status, error) {
+                     console.error(error);
+                     $('#petListContainer').text('Error loading pet list. Please try again.');
+                 }
+             });
+        }
+
+        function editPet(id, name) {
+                        alert(id+","+name);
+          // 创建对话框内容
+          var form = $('<form></form>');
+          form.append('<label for="petId">ID:</label>');
+          form.append('<input type="text" id="petId" name="petId" value="' + id + '" disabled><br>');
+          form.append('<label for="petName">Name:</label>');
+          form.append('<input type="text" id="petName" name="petName" value="' + name + '"><br>');
+
+          // 显示对话框
+          $('<div></div>')
+            .append(form)
+            .dialog({
+              title: 'Edit Pet',
+              modal: true,
+              buttons: {
+                "Submit": function () {
+                  // 获取表单数据
+                  var formData = {
+                    petId: $('#petId').val(),
+                    petName: $('#petName').val()
+                  };
+
+                  // 发送 POST 请求
+                  $.ajax({
+                    type: 'POST',
+                    url: '/updateName',
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                      // 处理返回的 JSON 数据
+                      console.log('Update successful.');
+                      console.log('Response:', response);
+                      getList();
+                      // 在这里可以执行其他操作
+                    },
+                    error: function (xhr, status, error) {
+                      console.error('Error updating pet: ' + error);
+                    }
+                  });
+
+                  // 关闭对话框
+                  $(this).dialog("close");
+                },
+                "Cancel": function () {
+                  // 关闭对话框
+                  $(this).dialog("close");
+                }
+              },
+              close: function () {
+                // 对话框关闭时的操作（如果有需要的话）
+
+              }
+
+            });
+
+        }
+
+
+        function deletePet(id) {
+            // 创建表单数据对象
+         var formData = {
+             petId: id
+         };
+
+          // 发送 POST 请求
+          $.ajax({
+            type: 'POST',
+            url: '/delPet',
+            data: formData,
+            dataType: 'json',
+            success: function(response) {
+              // 删除成功的处理逻辑
+              console.log('Pet with ID ' + id + ' deleted successfully.');
+              console.log('Response:', response);
+              // 在这里可以刷新宠物列表或执行其他操作
+
+                getList();
+            },
+    error: function(xhr, status, error) {
+      // 删除失败的处理逻辑
+      console.error('Error deleting pet with ID ' + id + ': ' + error);
+    }
+
+  });
+}
+            </script>
+        </section>
+    </main>
+    <footer>
+        <!-- 页面底部 -->
+        <p>&copy; 版权所有 2023. All rights reserved.</p>
+    </footer>
+</div>
+</body>
+</html>
+
+
+

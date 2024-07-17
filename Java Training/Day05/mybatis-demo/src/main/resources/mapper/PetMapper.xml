@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.springboot01.mapper.PetMapper">
+    <resultMap id="PetResult" type="cn.tedu.springboot01.entity.Pet">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="birth" property="birth" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="update_time" property="updateTime" javaType="DATE"/>
+    </resultMap>
+    <!-- 插入收货地址数据：Integer insert(Address address) -->
+    <insert id="insert">
+        insert into pet(name,gender,birth,create_time,update_time)
+        values(#{name}, #{gender}, #{birth}, #{createTime}, #{updateTime})
+    </insert>
+
+    <update id="updateName">
+            update pet set name=#{name} where id=#{id}
+    </update>
+
+    <delete id="deleteById">
+            delete from pet where id=#{id}
+    </delete>
+
+    <select id="findById">
+            select * from pet where id=#{id}
+    </select>
+
+    <select id="findAll">
+        select * from pet
+    </select>
+
+</mapper>
+
+
+

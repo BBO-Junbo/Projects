@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.DogWalkingAppointment.mapper.UserMapper">
+    <resultMap id="UserResultMap" type="cn.tedu.DogWalkingAppointment.entity.User">
+        <id column="user_id" property="userId" jdbcType="INTEGER"></id>
+        <result column="username" property="username" jdbcType="VARCHAR"></result>
+        <result column="password" property="password" jdbcType="VARCHAR"></result>
+        <result column="salt" property="salt" jdbcType="VARCHAR"></result>
+        <result column="phone" property="phone" jdbcType="VARCHAR"></result>
+        <result column="email" property="email" jdbcType="VARCHAR"></result>
+        <result column="gender" property="gender" jdbcType="INTEGER"></result>
+        <result column="avatar" property="avatar" jdbcType="VARCHAR"></result>
+        <result column="is_delete" property="isDelete" jdbcType="INTEGER"></result>
+        <result column="role" property="role" jdbcType="VARCHAR"></result>
+        <result column="created_user" property="createdUser" jdbcType="VARCHAR"></result>
+        <result column="created_time" property="createdTime" jdbcType="DATE"></result>
+        <result column="modified_user" property="modifiedUser" jdbcType="VARCHAR"></result>
+        <result column="modified_time" property="modifiedTime" jdbcType="DATE"></result>
+
+    </resultMap>
+    <insert id="insert" >
+        INSERT INTO
+        users (username, password, salt, phone, email, gender, avatar, is_delete,role, created_user, created_time, modified_user, modified_time)
+        VALUES
+        (#{username}, #{password}, #{salt}, #{phone}, #{email}, #{gender}, #{avatar}, #{isDelete}, #{role},#{createdUser}, #{createdTime}, #{modifiedUser}, #{modifiedTime})
+    </insert>
+
+    <select id="findByUsername" resultMap="UserResultMap">
+        select user_id,username,password,salt,phone,email,gender,avatar,is_delete,role,created_user,created_time,modified_user,modified_time
+        from users
+        where username = #{username} and (is_delete=0 or is_delete is null)
+    </select>
+
+    <update id="updatePasswordByUid">
+        update users set password=#{password},modified_user=#{modifiedUser},modified_time=#{modifiedTime}
+        where user_id=#{userId}
+    </update>
+
+
+    <select id="findByUid" resultMap="UserResultMap">
+        select user_id,username,password,salt,phone,email,gender,avatar,is_delete,role,created_user,created_time,modified_user,modified_time
+        from users
+        where user_id=#{userId} and (is_delete=0 or is_delete is null)
+    </select>
+
+    <update id="updateInfoByUid">
+        update users set
+        <if test="phone != null">phone = #{phone},</if>
+        <if test="email != null">email = #{email},</if>
+        <if test="gender != null">gender = #{gender},</if>
+        modified_user = #{modifiedUser},
+        modified_time = #{modifiedTime}
+        where user_id=#{userId}
+    </update>
+
+    <update id="updateAvatar">
+        UPDATE t_user SET avatar = #{avatar}, modified_user = #{modifiedUser}, modified_time = #{modifiedTime}
+        WHERE
+        user_id = #{userId}
+    </update>
+</mapper>

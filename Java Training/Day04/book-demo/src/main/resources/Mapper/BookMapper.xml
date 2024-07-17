@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.tedu.springboot01.Mapper.BookMapper" >
+    <resultMap id="ResultBook" type="cn.tedu.springboot01.entity.Book">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="author" property="author" jdbcType="VARCHAR"/>
+        <result column="publisher" property="publisher" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <insert id="insert">
+        insert into Book(title, author, publisher, price)
+        values(#{title}, #{author}, #{publisher}, #{price})
+    </insert>
+    <update id="updatePrice">
+        update book set price=#{price} where id=#{id}
+    </update>
+    <delete id="deleteById">
+        delete from book where id=#{id}
+    </delete>
+
+    <select id="selectById">
+        select * from book where id=#{id}
+    </select>
+
+</mapper>

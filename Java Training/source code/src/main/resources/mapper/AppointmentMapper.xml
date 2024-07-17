@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.DogWalkingAppointment.mapper.AppointmentMapper">
+    <resultMap id="AppointmentEntityMap" type="cn.tedu.DogWalkingAppointment.entity.Appointment">
+        <result column="appointment_id" property="appointmentId"/>
+        <result column="dog_id" property="dogId"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="created_user" property="createdUser"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="modified_user" property="modifiedUser"/>
+        <result column="modified_time" property="modifiedTime"/>
+    </resultMap>
+
+    <insert id="insert"  useGeneratedKeys="true" keyProperty="appointmentId">
+        insert into appointments (dog_id,customer_id,start_time,end_time,created_user,created_time, modified_user, modified_time)
+        values(#{dogId},#{customerId},#{startTime},#{endTime},#{createdUser},#{createdTime}, #{modifiedUser}, #{modifiedTime})
+    </insert>
+
+    <select id="findByUidAndAid" resultMap="AppointmentEntityMap">
+        SELECT
+        *
+        FROM
+        appointments
+        WHERE
+        uid=#{uid} AND aid=#{aid}
+    </select>
+
+    <select id="findByAid" resultMap="AppointmentEntityMap">
+        SELECT
+        *
+        FROM
+        appointments
+        WHERE
+        appointment_id=#{aid}
+    </select>
+
+    <select id="findByCustomerId" resultMap="AppointmentEntityMap">
+        SELECT
+        *
+        FROM
+        appointments
+        WHERE
+        customer_id=#{cid}
+    </select>
+
+    <select id="findByDogId" resultMap="AppointmentEntityMap">
+        SELECT
+        *
+        FROM
+        appointments
+        WHERE
+        dog_id=#{did}
+    </select>
+</mapper>

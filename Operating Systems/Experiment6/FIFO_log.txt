@@ -1,0 +1,18 @@
+FIFO: Added Page 1
+FIFO: Added Page 2
+FIFO: Added Page 3
+FIFO: Evicted Page 1
+FIFO: Added Page 4
+FIFO: Evicted Page 2
+FIFO: Added Page 1
+FIFO: Evicted Page 3
+FIFO: Added Page 2
+FIFO: Evicted Page 4
+FIFO: Added Page 5
+FIFO: Page 1 - Hit
+FIFO: Page 2 - Hit
+FIFO: Evicted Page 1
+FIFO: Added Page 3
+FIFO: Evicted Page 2
+FIFO: Added Page 4
+FIFO: Page 5 - Hit

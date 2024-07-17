@@ -1,0 +1,43 @@
+# Project: 项目1
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = framecode/geomodeling.o framecode/main.o framecode/test1.o framecode/test3.o framecode/test2.o framecode/outdoor.o
+LINKOBJ  = framecode/geomodeling.o framecode/main.o framecode/test1.o framecode/test3.o framecode/test2.o framecode/outdoor.o
+LIBS     = -L"D:/StudyandWorkApps/programing/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc  -lglu32 -lopengl32 -lwinmm -lgdi32 -lfreeglut -m32
+INCS     = -I"D:/StudyandWorkApps/programing/Dev-Cpp/MinGW64/include" -I"D:/StudyandWorkApps/programing/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/StudyandWorkApps/programing/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"D:/StudyandWorkApps/programing/Dev-Cpp/MinGW64/include" -I"D:/StudyandWorkApps/programing/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/StudyandWorkApps/programing/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/StudyandWorkApps/programing/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+BIN      = 项目1.exe
+CXXFLAGS = $(CXXINCS) -m32
+CFLAGS   = $(INCS) -m32
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+framecode/geomodeling.o: framecode/geomodeling.cpp
+	$(CPP) -c framecode/geomodeling.cpp -o framecode/geomodeling.o $(CXXFLAGS)
+
+framecode/main.o: framecode/main.cpp
+	$(CPP) -c framecode/main.cpp -o framecode/main.o $(CXXFLAGS)
+
+framecode/test1.o: framecode/test1.cpp
+	$(CPP) -c framecode/test1.cpp -o framecode/test1.o $(CXXFLAGS)
+
+framecode/test3.o: framecode/test3.cpp
+	$(CPP) -c framecode/test3.cpp -o framecode/test3.o $(CXXFLAGS)
+
+framecode/test2.o: framecode/test2.cpp
+	$(CPP) -c framecode/test2.cpp -o framecode/test2.o $(CXXFLAGS)
+
+framecode/outdoor.o: framecode/outdoor.cpp
+	$(CPP) -c framecode/outdoor.cpp -o framecode/outdoor.o $(CXXFLAGS)

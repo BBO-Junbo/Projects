@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/dogwalking?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&requireSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet:
+    multipart:
+      max-file-size:  10MB
+
+server:
+  port: 8080
+mybatis:
+  mapper-locations:
+    - classpath:/mapper/*.xml
+
+logging:
+  level:
+    cn.tedu.store.mapper: DEBUG
+
+user:
+  address:
+    max-count:  20

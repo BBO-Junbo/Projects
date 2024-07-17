@@ -1,0 +1,19 @@
+LRU: Page 1 - Hit
+LRU: Page 2 - Hit
+LRU: Evicted Page 1
+LRU: Added Page 3
+LRU: Evicted Page 2
+LRU: Added Page 4
+LRU: Evicted Page 3
+LRU: Added Page 1
+LRU: Evicted Page 4
+LRU: Added Page 2
+LRU: Page 5 - Hit
+LRU: Page 1 - Hit
+LRU: Page 2 - Hit
+LRU: Evicted Page 5
+LRU: Added Page 3
+LRU: Evicted Page 1
+LRU: Added Page 4
+LRU: Evicted Page 2
+LRU: Added Page 5

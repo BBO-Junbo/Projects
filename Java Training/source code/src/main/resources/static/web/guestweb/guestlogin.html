@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- 其他头部内容 -->
+
+    <title>遛狗预约系统（客户端）</title>
+    <style>
+        /* 设置页面样式 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("../../images/首页.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            color: #fff;
+            padding: 10px;
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* 新增 */
+            text-align: center; /* 新增 */
+        }
+         h1{
+            font-size:300%;
+        }
+         h2{
+             font-size:200%;
+        }
+        .btn {
+            display: inline-block;
+            padding: 20px 40px;
+            background-color: #eee;
+            border: none;
+            text-decoration: none;
+            color: #666;
+            font-weight: bold;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 10%;
+            opacity: 0.75;
+        }
+        .btn:first-of-type {
+            margin-right: 20px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+            text-align: left; /* 新增 */
+        }
+
+        .form-group label {
+            font-size:20px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            opacity: 0.7;
+            font-size: 15px;
+            padding: 10px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <!-- 页面顶部 -->
+        <h1>遛狗预约系统</h1>
+    </header>
+    <main>
+        <!-- 页面中部 -->
+        <h2>客户登录</h2>
+        <form id="form-login" action="/users/login" method="POST"> <!-- 添加 id 和 action 属性 -->
+            <div class="form-group">
+                <label for="admin-username">用户名:</label>
+                <input type="text" id="admin-username" name="username" placeholder="用户名"> <!-- 添加 name 属性 -->
+            </div>
+            <div class="form-group">
+                <label for="admin-password">密码:</label>
+                <input type="password" id="admin-password" name="password" placeholder="密码"> <!-- 添加 name 属性 -->
+            </div>
+            <input type="hidden" name="role" value="C"> <!-- 添加隐藏的输入字段 -->
+            <button id="btn-login" type="button" class="btn">登录</button> <!-- 修改 type 属性为 "button" -->
+            <a href="http://localhost:8080/index.html" class="btn" id="btn-home">返回</a>
+        </form>
+    </main>
+    <footer>
+        <!-- 页面底部 -->
+        <p>&copy; 版权所有 2023. All rights reserved.</p>
+    </footer>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $("#btn-login").click(function() { // 绑定点击事件
+        $.ajax({
+            url: "/users/login",
+            type: "POST",
+            data: $("#form-login").serialize(),
+            dataType: "json",
+            success: function(json) {
+                if (json.state == 200) {
+                    alert("登录成功！");
+                    location.href = "guestindex.html";
+                } else {
+                    alert("登录失败！" + json.message);
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
